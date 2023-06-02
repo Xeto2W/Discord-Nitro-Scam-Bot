@@ -6,7 +6,7 @@ import os
 from colorama import *
 from pystyle import *
 
-# Load the configuration from config.json
+
 with open("config.json", "r") as f:
     config = json.load(f)
 
@@ -31,7 +31,7 @@ async def on_ready():
 
     print(f"-----------------------Bot connected as {bot.user.name}----------------------")
 
-# Slash command handler
+
 @bot.slash_command(
     name="redeem",
     description="Allows you to redeem nitro on a token"
@@ -68,5 +68,5 @@ async def stock(ctx):
     
     
 
-# Run the bot
+
 bot.run(bot_token)
