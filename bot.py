@@ -12,8 +12,11 @@ with open("config.json", "r") as f:
 
 webhook_url = config["webhook_url"]
 bot_token = config["bot_token"]
+# Api updated day ------
+intents = discord.Intents.default()
+intents.typing = False  
 
-bot = commands.Bot(command_prefix="/")
+bot = commands.Bot(command_prefix='/', intents=intents)
 
 os.system("mode 175,30 & title [Scam Ntro Bot - xeto#9999]")
 
